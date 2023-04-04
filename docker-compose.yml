@@ -1,0 +1,21 @@
+version: '2.0'
+services:
+  api:
+    container_name: nest_api_mongo
+    build: .
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/home/api
+    depends_on:
+      - database
+  database:
+    image: mongo:4.4.3
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/eliot/Documents/Docker/Volumes/MongoDB:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_DB: job
