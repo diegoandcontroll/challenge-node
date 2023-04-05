@@ -21,24 +21,24 @@ model User {
 }
 
 model Category {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Product   Product[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @db.ObjectId
 
   @@map("categories")
 }
 
 model Product {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId String   @db.ObjectId
-  title      String
-  qty        Int
-  price      Float
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  qty       Int
+  price     Float
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Category  Category[]
 
   @@map("products")
 }
