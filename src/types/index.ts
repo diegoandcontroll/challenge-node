@@ -1,4 +1,4 @@
-import { User } from '@prisma/client';
+import { Category, User } from '@prisma/client';
 
 export type IResponseUser = Pick<
   User,
@@ -12,4 +12,12 @@ export type authDto = {
 
 export type categoryDto = {
   title: string;
+  productId?: string;
+};
+
+export type productDto = {
+  title: string;
+  qty: number;
+  price: number;
+  categoryId?: string;
 };

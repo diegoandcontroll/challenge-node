@@ -25,20 +25,20 @@ model Category {
   title     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Product   Product? @relation(fields: [productId], references: [id])
+  Product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String?  @db.ObjectId
 
   @@map("categories")
 }
 
 model Product {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  qty       Int
-  price     Float
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Category  Category[]
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
+  title      String
+  qty        Int
+  price      Float
+  categories Category[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 
   @@map("products")
 }
