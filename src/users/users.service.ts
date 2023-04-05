@@ -1,4 +1,10 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IResponseUser } from 'src/types';
@@ -58,5 +64,18 @@ export class UsersService {
       throw new HttpException('User not found!', HttpStatus.NOT_FOUND);
     }
     return user;
+  }
+  async addImage(id: string, url: string) {
+    const product = await this.prisma.product.findFirst({
+      where: { id },
+    });
+    if (!product) throw new NotFoundException('Product not found');
+    const productUpdated = await this.prisma.product.update({
+      where: { id },
+      data: {
+        urlImage: url,
+      },
+    });
+    return productUpdated;
   }
 }

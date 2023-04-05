@@ -21,19 +21,3 @@ type Category = {
   createdAt: string;
   updatedAt: string;
 };
-export type authDto = {
-  email: string;
-  password: string;
-};
-
-export type categoryDto = {
-  title: string;
-  productsId?: string[];
-};
-
-export type productDto = {
-  title: string;
-  qty: number;
-  price: number;
-  categoriesId?: string[];
-};
