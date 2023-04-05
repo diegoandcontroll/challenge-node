@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CategoriesModule } from './categories/categories.module';
+import { ProductsModule } from './products/products.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -13,6 +14,7 @@ import { CategoriesModule } from './categories/categories.module';
     AuthModule,
     PrismaModule,
     CategoriesModule,
+    ProductsModule,
   ],
   controllers: [],
   providers: [],

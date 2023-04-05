@@ -13,12 +13,15 @@ export class CategoriesService {
     const category = await this.prisma.category.create({
       data: {
         title: data.title,
-        productId: null,
       },
     });
     return category;
   }
-
+  async findOne(id: string): Promise<Category> {
+    return await this.prisma.category.findFirst({
+      where: { id },
+    });
+  }
   async findAll(): Promise<Category[]> {
     const categories = await this.prisma.category.findMany();
     return categories;
