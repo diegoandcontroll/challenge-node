@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Product } from '@prisma/client';
 import { CategoriesService } from 'src/categories/categories.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { productDto } from 'src/types';
+import { productDto } from './dto/product.dto';
 
 @Injectable()
 export class ProductsService {

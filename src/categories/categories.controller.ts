@@ -1,36 +1,25 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
-import { categoryDto } from 'src/types';
 
+import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { categoryDto } from './dto/categories.dto';
+@ApiTags('Categories')
 @Controller('category')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
+  @ApiBearerAuth('JWT-auth')
   create(@Body() data: categoryDto) {
     return this.categoriesService.create(data);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
+  @ApiBearerAuth('JWT-auth')
   findAll() {
     return this.categoriesService.findAll();
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.categoriesService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateCategoryDto: UpdateCategoryDto,
-  // ) {
-  //   return this.categoriesService.update(+id, updateCategoryDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.categoriesService.remove(+id);
-  // }
 }
