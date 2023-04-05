@@ -26,7 +26,17 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Libraries / Technologies
+
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+
+[Prisma](https://www.prisma.io/) Node.js and TypeScript ORM.
+
+[@nestjs/jwt](https://www.npmjs.com/package/@nestjs/jwt) JWT utilities module for Nest based on the jsonwebtoken package.
+
+[Cloudinary](https://www.npmjs.com/package/cloudinary) Upload image to Cloudinary
+
+[nest-swagger](https://www.npmjs.com/package/nest-swagger) Upload image to Cloudinary
 
 ```bash
 $ yarn install
