@@ -13,7 +13,6 @@ export class CategoriesService {
     const category = await this.prisma.category.create({
       data: {
         title: data.title,
-        productId: data.productId ? data.productId : null,
       },
     });
     return category;
@@ -24,11 +23,7 @@ export class CategoriesService {
     });
   }
   async findAll(): Promise<Category[]> {
-    const categories = await this.prisma.category.findMany({
-      include: {
-        Product: true,
-      },
-    });
+    const categories = await this.prisma.category.findMany();
     return categories;
   }
 }

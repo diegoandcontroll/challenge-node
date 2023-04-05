@@ -20,25 +20,32 @@ model User {
   @@map("users")
 }
 
+model Product {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  qty          Int
+  price        Float
+  urlImage     String?
+  categoriesId String[]   @db.ObjectId
+  categories   Category[] @relation(fields: [categoriesId], references: [id])
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@map("products")
+}
+
 model Category {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Product   Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
-  productId String?  @db.ObjectId
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  parent      Parent?
+  productsIds String[]  @db.ObjectId
+  products    Product[] @relation(fields: [productsIds], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
   @@map("categories")
 }
 
-model Product {
-  id         String     @id @default(auto()) @map("_id") @db.ObjectId
-  title      String
-  qty        Int
-  price      Float
-  categories Category[]
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-
-  @@map("products")
+type Parent {
+  title String
 }

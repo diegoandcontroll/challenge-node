@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Product, Category } from '@prisma/client';
+import { Product } from '@prisma/client';
 import { CategoriesService } from 'src/categories/categories.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { productDto } from 'src/types';
@@ -20,44 +20,58 @@ export class ProductsService {
         title: data.title,
         categories: {
           connect: {
-            id: data.categoryId,
+            id: data.categoriesId[0],
           },
         },
       },
     });
-    // if (categories) {
-    //   await this.prisma.product.update({
-    //     where: { id: product.id },
-    //     data: {
-    //       categories: {
-    //         connect: [categories],
-    //       },
-    //     },
-    //   });
-    //   await this.prisma.category.update({
-    //     where: { id: categories.id },
-    //     data: {
-    //       productId: product.id,
-    //     },
-    //   });
-    // }
     return product;
   }
 
-  async findAll(): Promise<Product[]> {
+  async findAll() {
     const products = await this.prisma.product.findMany({
-      include: {
-        categories: true,
+      select: {
+        id: true,
+        title: true,
+        urlImage: true,
+        price: true,
+        qty: true,
+        categories: {
+          select: {
+            id: true,
+            title: true,
+            parent: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        createdAt: true,
+        updatedAt: true,
       },
     });
     return products;
   }
 
-  async findOne(id: string): Promise<Product> {
+  async findOne(id: string) {
     const user = await this.prisma.product.findFirst({
       where: { id },
-      include: {
-        categories: true,
+      select: {
+        id: true,
+        title: true,
+        urlImage: true,
+        price: true,
+        qty: true,
+        categories: {
+          select: {
+            id: true,
+            title: true,
+            parent: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+        createdAt: true,
+        updatedAt: true,
       },
     });
     if (!user) throw new NotFoundException('Product not found');
