@@ -39,6 +39,7 @@
 [nest-swagger](https://www.npmjs.com/package/nest-swagger) Upload image to Cloudinary
 
 ```bash
+Create .env file
 $ yarn install
 ```
 
